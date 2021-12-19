@@ -51,7 +51,7 @@ electron.app.on('browser-window-created', (_, window) => {
 
 	if (app.os === 'win10') {
 		const bindings = require('./vibrancy.js');
-		bindings.setVibrancy(window.getNativeWindowHandle().readInt32LE(0), 1, backgroundRGB.r, backgroundRGB.g, backgroundRGB.b, 0);
+		bindings.setVibrancy(window.getNativeWindowHandle().readInt32LE(0), 0, backgroundRGB.r, backgroundRGB.g, backgroundRGB.b, 0);
 		const win10refresh = require('./win10refresh.js');
 		win10refresh(window, 60);
 
@@ -69,10 +69,10 @@ electron.app.on('browser-window-created', (_, window) => {
 		});
 	}
 
-	let backgroundColorTimer;
-	window.on('closed', () => {
-		clearInterval(backgroundColorTimer);
-	})
+	// let backgroundColorTimer;
+	// window.on('closed', () => {
+	// 	clearInterval(backgroundColorTimer);
+	// })
 
 	window.webContents.on('dom-ready', () => {
 		const currentURL = window.webContents.getURL();
@@ -81,13 +81,13 @@ electron.app.on('browser-window-created', (_, window) => {
 			return;
 		}
 
-		window.setBackgroundColor('#00000000');
+		// window.setBackgroundColor('#00000000');
 
-		clearInterval(backgroundColorTimer);
-		// https://github.com/microsoft/vscode/blob/9f8431f7fccf7a048531043eb6b6d24819482781/src/vs/platform/theme/electron-main/themeMainService.ts#L80
-		backgroundColorTimer = setInterval(() => {
-			window.setBackgroundColor('#00000000');
-		}, 1000);
+		// clearInterval(backgroundColorTimer);
+		// // https://github.com/microsoft/vscode/blob/9f8431f7fccf7a048531043eb6b6d24819482781/src/vs/platform/theme/electron-main/themeMainService.ts#L80
+		// backgroundColorTimer = setInterval(() => {
+		// 	window.setBackgroundColor('#00000000');
+		// }, 1000);
 
 		if (app.os === 'macos') {
 			window.setVibrancy(type);
