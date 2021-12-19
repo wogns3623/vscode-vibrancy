@@ -1,5 +1,10 @@
 # Visual Studio Code Extension - Vibrancy
 
+## Need to modify vscode soruce code!
+- [코드](https://github.com/microsoft/vscode/blob/9f8431f7fccf7a048531043eb6b6d24819482781/src/vs/platform/theme/electron-main/themeMainService.ts#L80)를 보면 특정 이벤트마다 electron app background를 수정해줌을 알 수 있음
+- 근데 이 `splash.colorInfo.background`값이 위의 시점에서 변경되는데, opacity값은 빼고 받는 탓에 `setInterval`등으로 주기적으로 배경색을 다시 설정해줘야함
+- `{vscode root}/resources/app/out/vs/workbench/workbench.desktop.main.js` 에 `_partSplashService` 검색 후 `background:R.Color.Format.CSS.formatHex`를 `background:R.Color.Format.CSS.formatHexA`로 변경해 electron app background가 opacity 값을 받도록 수정하면 됨
+
 > Windows 10 users may have a slight mouse lag when moving the window, [please read here for details](https://github.com/EYHN/vscode-vibrancy/discussions/80).
 
 > Starting from v1.0.10, this extension no longer supports Windows 7.
